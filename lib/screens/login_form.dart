@@ -2,6 +2,7 @@
 * Created by ujjawal on 29/01/26.
 */
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart'; // import 'package:flutter_thermal_printer/flutter_thermal_printer.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // import 'package:flutter_thermal_printer/utils/printer';
@@ -232,28 +233,6 @@ class _LoginFormState extends State<LoginForm> {
     // }
   }
 
-  void initScanning() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // _flutterThermalPrinterPlugin.bleConfig = const BleConfig(connectionStabilizationDelay: Duration(seconds: 3));
-      startScan();
-    });
-  }
-
-  // Get Printer List
-  void startScan() async {
-    // _devicesStreamSubscription?.cancel();
-    // await _flutterThermalPrinterPlugin.getPrinters(connectionTypes: [ConnectionType.USB, ConnectionType.BLE]);
-    // _devicesStreamSubscription = _flutterThermalPrinterPlugin.devicesStream.listen((List<Printer> event) {
-    //   setState(() {
-    //     printers = event;
-    //     printers.removeWhere(
-    //       (element) => element.name == null || element.name == '' || element.name!.toLowerCase().contains("print") == false,
-    //     );
-    //   });
-    // });
-    // Future.delayed(Duration(seconds: 10), () => _devicesStreamSubscription?.cancel());
-  }
-
   Stream<Future<int>> getDataFromFuture(int i, int b) async* {
     await Future.delayed(Duration(seconds: 1));
     int result = i + b;
@@ -280,7 +259,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    // _devicesStreamSubscription?.cancel();
     super.dispose();
   }
 
@@ -291,7 +269,7 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     UserData userData = UserData(username.text, int.parse(password.text));
-    _preferences.setString("userInfo", userData.toString());
+    _preferences.setString("userInfo", jsonEncode(userData.toJson()));
     // _preferences.remove("userInfo");
 
     _preferences.setString("username", username.text);
@@ -300,8 +278,15 @@ class _LoginFormState extends State<LoginForm> {
 
   void initSharedPreference() async {
     _preferences = await SharedPreferences.getInstance();
-    username.text = _preferences.getString("username") ?? '';
-    password.text = _preferences.getString("password") ?? '';
+    String? userInfo = _preferences.getString("userInfo");
+
+    if (userInfo != null) {
+      UserData userData = UserData.fromJson(jsonDecode(userInfo));
+      username.text = userData.name ?? '';
+      password.text = userData.age.toString();
+    }
+    // username.text = _preferences.getString("username") ?? '';
+    // password.text = _preferences.getString("password") ?? '';
   }
 }
 
