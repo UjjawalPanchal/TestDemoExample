@@ -138,45 +138,49 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 10,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              // userName = "12";
-              // pass = "12";
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => const ListScreen()));
-              _decrementCounter();
-            },
-            tooltip: 'Decrement',
-            child: const Icon(Icons.exposure_minus_1),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              // userName = "12";
-              // pass = "12";
-              // navigateToAnyScreen(CounterDemo());
-              navigateToAnyScreen(ListScreen()).then((value) {
-                if (value != null) {
-                  print("v--------------$value");
-                }
-              });
+      bottomNavigationBar: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 10,
+          children: [
+            FloatingActionButton(
+              heroTag: "decrement",
+              onPressed: () {
+                // userName = "12";
+                // pass = "12";
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ListScreen()));
+                _decrementCounter();
+              },
+              tooltip: 'Decrement',
+              child: const Icon(Icons.exposure_minus_1),
+            ),
+            FloatingActionButton(
+              heroTag: "increment",
+              onPressed: () {
+                // userName = "12";
+                // pass = "12";
+                // navigateToAnyScreen(CounterDemo());
+                navigateToAnyScreen(ListScreen()).then((value) {
+                  if (value != null) {
+                    print("v--------------$value");
+                  }
+                });
 
-              // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => LoginForm(0, "0"))).then((value) {
-              //   loginKey.currentState!.arrayList[0];
-              // });
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(key: loginKey))).then((value) {
-              //   loginKey.currentState!.arrayList[0];
-              // });
+                // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => LoginForm(0, "0"))).then((value) {
+                //   loginKey.currentState!.arrayList[0];
+                // });
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(key: loginKey))).then((value) {
+                //   loginKey.currentState!.arrayList[0];
+                // });
 
-              // _incrementCounter();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-        ],
+                // _incrementCounter();
+              },
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            ),
+          ],
+        ),
       ),
     );
   }
