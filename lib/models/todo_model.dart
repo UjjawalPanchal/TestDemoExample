@@ -31,8 +31,6 @@ class TodoModel {
   String? todo;
   bool? completed;
   int? userId;
-  List<String>? tags;
-  List<Reviews>? review;
 
   TodoModel({this.id, this.todo, this.completed, this.userId});
 
@@ -41,18 +39,6 @@ class TodoModel {
     todo = json['todo'];
     completed = json['completed'];
     userId = json['userId'];
-    if (json['tags'] != null) {
-      tags = <String>[];
-      for (int i = 0; i < json['tags'].length; i++) {
-        tags!.add(json['tags'][i]);
-      }
-    }
-    if (json['reviews'] != null) {
-      review = <Reviews>[];
-      for (int i = 0; i < json['reviews'].length; i++) {
-        review!.add(Reviews.fromJson(json['reviews'][i]));
-      }
-    }
   }
 }
 

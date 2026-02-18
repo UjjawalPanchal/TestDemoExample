@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project/screens/counter/controller/count_controller.dart';
+import 'package:test_project/screens/list_demo_screen.dart';
 import 'package:test_project/screens/list_screen.dart';
 
 void main() {
@@ -161,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // userName = "12";
                 // pass = "12";
                 // navigateToAnyScreen(CounterDemo());
-                navigateToAnyScreen(ListScreen()).then((value) {
+                navigateToAnyScreen(ListDemoScreen()).then((value) {
                   if (value != null) {
                     print("v--------------$value");
                   }

@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:test_project/data/constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:test_project/main.dart';
 import 'package:test_project/models/todo_model.dart';
 import 'package:test_project/screens/detail_screen/detail_demo_screen.dart';
@@ -19,16 +19,8 @@ class ListDemoScreen extends StatefulWidget {
 }
 
 class _ListDemoScreenState extends State<ListDemoScreen> {
-  // List<Map<String, UserData>> arrayList = [];
-
   List<TodoModel> todoList = [];
   int total = 0;
-
-  // final StreamController<Object> _selectionController = StreamController<Object>.broadcast();
-  //
-  // StreamSink<Object> get selectionSink => _selectionController.sink;
-  //
-  // Stream<Object> get selectionStream => _selectionController.stream;
 
   final StreamController<String> _streamController = StreamController<String>.broadcast();
 
@@ -61,7 +53,7 @@ class _ListDemoScreenState extends State<ListDemoScreen> {
                 return ListTile(
                   key: ValueKey(todoList[index]),
                   onTap: () {
-                    navigateToAnyScreen(DetailDemoScreen(data: todoList[index]));
+                    navigateToAnyScreen(DetailDemoScreen(todoId: todoList[index].id ?? 0));
                   },
                   leading: ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset("assets/place_holder_image.png")),
                   title: Text(todoList[index].todo ?? ''),
@@ -78,14 +70,13 @@ class _ListDemoScreenState extends State<ListDemoScreen> {
   }
 
   void getTodoListData() async {
-    setState(() {});
-    await Future.delayed(const Duration(seconds: 2));
-
-    dynamic response = jsonDecode(Constants.todoArray);
-    TodoMainModel data = TodoMainModel.fromJson(response);
-    todoList = data.todos ?? [];
-    total = data.total ?? 0;
     _streamController.add(todoList.hashCode.toString());
+    http.get(Uri.parse("https://dummyjson.com/todos")).then((response) {
+      TodoMainModel data = TodoMainModel.fromJson(jsonDecode(response.body));
+      todoList = data.todos ?? [];
+      total = data.total ?? 0;
+      _streamController.add(todoList.hashCode.toString());
+    });
   }
 
   @override

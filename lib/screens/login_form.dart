@@ -40,7 +40,7 @@ class _LoginFormState extends State<LoginForm> {
   * */
   @override
   void initState() {
-    print("I am initState");
+    debugPrint("I am initState");
     super.initState();
     initSharedPreference();
 
@@ -307,4 +307,6 @@ class UserData {
     data['age'] = age;
     return data;
   }
+
+  UserData.copyWith(String this.name, int this.age);
 }
