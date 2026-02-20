@@ -105,11 +105,17 @@ class _LoginFormState extends State<LoginForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 10,
             children: [
-              TextField(
+              TextFormField(
                 focusNode: userNameFc,
                 textInputAction: TextInputAction.next,
                 controller: username,
                 enableInteractiveSelection: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "The form field is required";
+                  }
+                  return null;
+                },
                 contextMenuBuilder: null,
                 // contextMenuBuilder: (BuildContext context, EditableTextState editableTextState) {
                 //   final List<ContextMenuButtonItem> buttonItems = editableTextState.contextMenuButtonItems;
@@ -126,18 +132,29 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 decoration: InputDecoration(prefixIcon: Icon(Icons.person), border: OutlineInputBorder(), labelText: 'Username'),
               ),
-              TextField(
+              TextFormField(
                 obscureText: show,
                 controller: password,
                 obscuringCharacter: '*',
                 textInputAction: TextInputAction.go,
                 maxLength: 6,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Password is required";
+                  }
+                  if (value.length < 6) {
+                    return "Password must be 6 digits";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  keyForm.currentState!.validate();
+                },
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                   prefixIcon: Icon(Icons.lock),
-
                   suffixIcon: IconButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {
@@ -199,11 +216,11 @@ class _LoginFormState extends State<LoginForm> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: TextWidget("Form is Not validate")));
                       }
 
-                      buttonClick(() {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Login Successful \nUserName: ${username.text}\nPassword: ${password.text}")),
-                        );
-                      });
+                      // buttonClick(() {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text("Login Successful \nUserName: ${username.text}\nPassword: ${password.text}")),
+                      //   );
+                      // });
 
                       // initScanning();
                     },
@@ -272,8 +289,8 @@ class _LoginFormState extends State<LoginForm> {
     _preferences.setString("userInfo", jsonEncode(userData.toJson()));
     // _preferences.remove("userInfo");
 
-    _preferences.setString("username", username.text);
-    _preferences.setString("password", password.text);
+    _preferences.setString("username", username.text.trim());
+    _preferences.setString("password", password.text.trim());
   }
 
   void initSharedPreference() async {

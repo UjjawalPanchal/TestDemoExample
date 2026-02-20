@@ -162,11 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // userName = "12";
                 // pass = "12";
                 // navigateToAnyScreen(CounterDemo());
-                navigateToAnyScreen(ListDemoScreen()).then((value) {
-                  if (value != null) {
-                    print("v--------------$value");
-                  }
-                });
+                navigateToAnyScreen(ListDemoScreen());
 
                 // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => LoginForm(0, "0"))).then((value) {
                 //   loginKey.currentState!.arrayList[0];

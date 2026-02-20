@@ -31,14 +31,16 @@ class TodoModel {
   String? todo;
   bool? completed;
   int? userId;
+  DateTime? dateTime;
 
-  TodoModel({this.id, this.todo, this.completed, this.userId});
+  TodoModel({this.id, this.todo, this.completed, this.userId, this.dateTime});
 
   TodoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     todo = json['todo'];
     completed = json['completed'];
     userId = json['userId'];
+    dateTime = DateTime.now();
   }
 }
 
