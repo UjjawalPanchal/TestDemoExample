@@ -2,6 +2,7 @@
 * Created by ujjawal on 11/02/26.
 */
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String assetId;
@@ -10,6 +11,10 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(assetId, height: 100, width: 100);
+    return SizedBox(
+      height: context.width / 4,
+      width: context.width / 4,
+      child: ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset(assetId)),
+    );
   }
 }

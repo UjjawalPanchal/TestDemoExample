@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project/screens/counter/controller/count_controller.dart';
-import 'package:test_project/screens/list_demo_screen.dart';
 import 'package:test_project/screens/list_screen.dart';
+import 'package:test_project/screens/login_screen/login_form.dart';
 
 void main() {
   // BankAccount bAccount = BankAccount();
@@ -71,7 +71,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final int _counter = 0;
   var pass = "test";
   String userName = "Ujjawal";
   List<int> arrayInt = [1, 3, 5, 6, 7, 8];
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (Get.isRegistered<CountController>()) {
       CountController controller = Get.find();
 
-      print("count_controller = ${controller.count}");
+      debugPrint("count_controller = ${controller.count}");
     }
     // setState(() {
     //   if (_counter > 0) {
@@ -95,30 +95,30 @@ class _MyHomePageState extends State<MyHomePage> {
     // });
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-    // for (int i = 0; i < arrayInt.length; i++) {
-    //   print(arrayInt[i]);
-    // }
-
-    // arrayInt.forEach((element) => print(element));
-    // for (int i in arrayInt) {
-    //   print(i);
-    // }
-    //
-    // switch (userName) {
-    //   case "12":
-    //     print("12");
-    //     break;
-    //   case "Ujjawal":
-    //     print("Ujjawal");
-    //     break;
-    //   default:
-    //     return;
-    // }
-  }
+  // void _incrementCounter() {
+  //   setState(() {
+  //     _counter++;
+  //   });
+  //   // for (int i = 0; i < arrayInt.length; i++) {
+  //   //   print(arrayInt[i]);
+  //   // }
+  //
+  //   // arrayInt.forEach((element) => print(element));
+  //   // for (int i in arrayInt) {
+  //   //   print(i);
+  //   // }
+  //   //
+  //   // switch (userName) {
+  //   //   case "12":
+  //   //     print("12");
+  //   //     break;
+  //   //   case "Ujjawal":
+  //   //     print("Ujjawal");
+  //   //     break;
+  //   //   default:
+  //   //     return;
+  //   // }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // userName = "12";
                 // pass = "12";
                 // navigateToAnyScreen(CounterDemo());
-                navigateToAnyScreen(ListDemoScreen());
+                navigateToAnyScreen(LoginForm());
 
                 // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => LoginForm(0, "0"))).then((value) {
                 //   loginKey.currentState!.arrayList[0];
@@ -189,6 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Future<dynamic> navigateToAnyScreen(Widget navigate) {
-  // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => navigate));
-  return Future.value(Get.to(navigate));
+  return Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => navigate));
+  // return Future.value(Get.to(navigate));
 }

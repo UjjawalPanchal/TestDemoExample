@@ -17,7 +17,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: textStyle ?? TextStyle(fontWeight: fontWeight, fontSize: textSize, color: tColor),
+      style: textStyle ?? TextStyle(fontWeight: fontWeight, fontSize: textSize, color: tColor, fontFamily: "Poppins"),
     );
   }
 }

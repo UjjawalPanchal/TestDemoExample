@@ -7,4 +7,6 @@ class Constants {
       ' "todo": "Do something nice for someone you care about",'
       ' "completed": false,'
       ' "userId": 152}';
+
+  static String placeholderImage = "assets/place_holder_image.png";
 }
