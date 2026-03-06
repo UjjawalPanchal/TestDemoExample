@@ -32,7 +32,7 @@ class ListDemoController extends GetxController {
     });
   }
 
-  void getTodoListData({int skip = 0}) async {
+  Future<void> getTodoListData({int skip = 0}) async {
     isLoading.value = true;
     http.get(Uri.parse("https://dummyjson.com/todos?limit=30&skip=$skip")).then((http.Response response) {
       TodoMainModel data = TodoMainModel.fromJson(jsonDecode(response.body));

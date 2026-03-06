@@ -121,27 +121,32 @@ class ListUiPart extends StatelessWidget {
               if (controller.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               }
-              return ListView.builder(
-                controller: controller.scrollController,
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  return RepaintBoundary(
-                    child: InkWell(
-                      onTap: () {
-                        if (context.isPortrait) {
-                          itemSelection(controller.dummyTodo[index]);
-                          //navigateToAnyScreen(DetailDemoScreen(todoId: controller.dummyTodo[index].id ?? 0));
-                        } else {
-                          controller.setSelectedItem(index);
-                        }
-                      },
-                      child: !Platform.isAndroid
-                          ? AndroidListItem(mItem: controller.dummyTodo[index])
-                          : IosListItem(mItem: controller.dummyTodo[index]),
-                    ),
-                  );
+              return RefreshIndicator(
+                onRefresh: () {
+                  return controller.getTodoListData();
                 },
-                itemCount: controller.dummyTodo.length,
+                child: ListView.builder(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return RepaintBoundary(
+                      child: InkWell(
+                        onTap: () {
+                          if (context.isPortrait) {
+                            itemSelection(controller.dummyTodo[index]);
+                            //navigateToAnyScreen(DetailDemoScreen(todoId: controller.dummyTodo[index].id ?? 0));
+                          } else {
+                            controller.setSelectedItem(index);
+                          }
+                        },
+                        child: !Platform.isAndroid
+                            ? AndroidListItem(mItem: controller.dummyTodo[index])
+                            : IosListItem(mItem: controller.dummyTodo[index]),
+                      ),
+                    );
+                  },
+                  itemCount: controller.dummyTodo.length,
+                ),
               );
             },
           ),
