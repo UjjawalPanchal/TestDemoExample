@@ -16,7 +16,7 @@ class IosListItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Row(
         children: [
-          CupertinoSwitch(value: mItem.completed ?? false, onChanged: (value) {}),
+          // CupertinoSwitch(value: mItem.completed ?? false, onChanged: (value) {}),
           Expanded(child: Text(mItem.todo ?? '')),
           Icon(Icons.arrow_forward_ios, color: Colors.black),
           CupertinoButton(onPressed: () {}, color: Colors.orange, child: Text("Submit")),

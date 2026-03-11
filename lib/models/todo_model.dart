@@ -42,6 +42,20 @@ class TodoModel {
     userId = json['userId'];
     dateTime = DateTime.now();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TodoModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          todo == other.todo &&
+          completed == other.completed &&
+          userId == other.userId &&
+          dateTime == other.dateTime;
+
+  @override
+  int get hashCode => Object.hash(id, todo, completed, userId, dateTime);
 }
 
 class Reviews {

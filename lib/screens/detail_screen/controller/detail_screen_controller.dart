@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:test_project/models/todo_model.dart';
 
 class DetailScreenController extends GetxController {
-  final int todoId;
+  final String todoId;
 
   DetailScreenController({required this.todoId});
 

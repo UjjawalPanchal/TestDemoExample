@@ -3,6 +3,7 @@
 */
 import 'package:flutter/material.dart'; // import 'package:flutter_thermal_printer/flutter_thermal_printer.dart';
 import 'package:get/get.dart';
+import 'package:test_project/repositories/auth_repo/auth_repo_impl.dart';
 import 'package:test_project/screens/login_screen/controller/login_controller.dart';
 
 class LoginForm extends StatelessWidget {
@@ -11,7 +12,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
-      init: LoginController(),
+      init: LoginController(authRepository: AuthRepoImpl()),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.white,

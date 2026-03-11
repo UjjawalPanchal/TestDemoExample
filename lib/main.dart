@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_project/route/routes.dart';
 import 'package:test_project/screens/counter/controller/count_controller.dart';
+import 'package:test_project/screens/list_demo_screen/list_demo_screen.dart';
 import 'package:test_project/screens/list_screen.dart';
-import 'package:test_project/screens/slivers_demo/sliver_demo_screen.dart';
 
 void main() {
   // BankAccount bAccount = BankAccount();
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // return MaterialApp.router(routerConfig: MyRouter.router);
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       navigatorKey: key,
@@ -47,24 +50,13 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.orange),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -88,46 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       debugPrint("count_controller = ${controller.count}");
     }
-    // setState(() {
-    //   if (_counter > 0) {
-    //     _counter--;
-    //   }
-    // });
   }
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  //   // for (int i = 0; i < arrayInt.length; i++) {
-  //   //   print(arrayInt[i]);
-  //   // }
-  //
-  //   // arrayInt.forEach((element) => print(element));
-  //   // for (int i in arrayInt) {
-  //   //   print(i);
-  //   // }
-  //   //
-  //   // switch (userName) {
-  //   //   case "12":
-  //   //     print("12");
-  //   //     break;
-  //   //   case "Ujjawal":
-  //   //     print("Ujjawal");
-  //   //     break;
-  //   //   default:
-  //   //     return;
-  //   // }
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text("Test Application Demo")),
       body: Center(
@@ -148,9 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
             FloatingActionButton(
               heroTag: "decrement",
               onPressed: () {
-                // userName = "12";
-                // pass = "12";
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ListScreen()));
                 _decrementCounter();
               },
               tooltip: 'Decrement',
@@ -162,16 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 // userName = "12";
                 // pass = "12";
                 // navigateToAnyScreen(CounterDemo());
-                navigateToAnyScreen(SliverDemoScreen());
-
-                // Navigator.push(key.currentContext!, MaterialPageRoute(builder: (context) => LoginForm(0, "0"))).then((value) {
-                //   loginKey.currentState!.arrayList[0];
-                // });
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(key: loginKey))).then((value) {
-                //   loginKey.currentState!.arrayList[0];
-                // });
-
-                // _incrementCounter();
+                // navigateByName(MyRoutes.listHome);
+                navigateToAnyScreen(ListDemoScreen());
+                // navigateToAnyScreen(SliverDemoScreen());
               },
               tooltip: 'Increment',
               child: const Icon(Icons.add),
@@ -186,6 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void didUpdateWidget(covariant MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
+}
+
+void navigateByName(String path) {
+  print("My Route To navigate -- $path");
+  MyRouter.router.go(path);
 }
 
 Future<dynamic> navigateToAnyScreen(Widget navigate) {

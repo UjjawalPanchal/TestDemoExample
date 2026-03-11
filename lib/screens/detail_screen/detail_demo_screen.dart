@@ -10,22 +10,14 @@ import 'package:test_project/screens/detail_screen/profile_details.dart';
 import 'package:test_project/screens/detail_screen/profile_header.dart';
 
 class DetailDemoScreen extends StatelessWidget {
-  final int todoId;
+  final String todoId;
 
   const DetailDemoScreen({super.key, required this.todoId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Detail Screen"),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
-      ),
+      appBar: AppBar(title: Text("Detail Screen"), leading: BackButton()),
       body: GetBuilder<DetailScreenController>(
         init: DetailScreenController(todoId: todoId),
         id: 'detail_screen_controller',
